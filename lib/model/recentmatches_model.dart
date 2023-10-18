@@ -199,7 +199,7 @@ class MatchInfo {
   MatchFormat matchFormat;
   String startDate;
   String endDate;
-  State state;
+  State? state;
   String status;
   Team team1;
   Team team2;
@@ -219,7 +219,7 @@ class MatchInfo {
     required this.matchFormat,
     required this.startDate,
     required this.endDate,
-    required this.state,
+    this.state,
     required this.status,
     required this.team1,
     required this.team2,
@@ -240,7 +240,7 @@ class MatchInfo {
         matchFormat: matchFormatValues.map[json["matchFormat"]]!,
         startDate: json["startDate"],
         endDate: json["endDate"],
-        state: stateValues.map[json["state"]]!,
+        state: stateValues.map[json["state"]],
         status: json["status"],
         team1: Team.fromJson(json["team1"]),
         team2: Team.fromJson(json["team2"]),

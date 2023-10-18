@@ -196,7 +196,7 @@ class MatchInfo {
   int seriesId;
   String seriesName;
   String matchDesc;
-  MatchFormat matchFormat;
+  String matchFormat;
   String startDate;
   String endDate;
   String state;
@@ -235,7 +235,7 @@ class MatchInfo {
         seriesId: json["seriesId"],
         seriesName: json["seriesName"],
         matchDesc: json["matchDesc"],
-        matchFormat: matchFormatValues.map[json["matchFormat"]]!,
+        matchFormat: json["matchFormat"],
         startDate: json["startDate"],
         endDate: json["endDate"],
         state: json["state"],
@@ -255,7 +255,7 @@ class MatchInfo {
         "seriesId": seriesId,
         "seriesName": seriesName,
         "matchDesc": matchDesc,
-        "matchFormat": matchFormatValues.reverse[matchFormat],
+        "matchFormat": matchFormat,
         "startDate": startDate,
         "endDate": endDate,
         "state": state,
@@ -270,11 +270,6 @@ class MatchInfo {
         "stateTitle": stateTitle,
       };
 }
-
-enum MatchFormat { ODI, T20, TEST }
-
-final matchFormatValues = EnumValues(
-    {"ODI": MatchFormat.ODI, "T20": MatchFormat.T20, "TEST": MatchFormat.TEST});
 
 class Team {
   int teamId;
@@ -385,16 +380,14 @@ class Team1Score {
 class Inngs {
   int inningsId;
   int runs;
-  int? wickets;
+  int wickets;
   double overs;
-  bool? isDeclared;
 
   Inngs({
     required this.inningsId,
     required this.runs,
-    this.wickets,
+    required this.wickets,
     required this.overs,
-    this.isDeclared,
   });
 
   factory Inngs.fromJson(Map<String, dynamic> json) => Inngs(
@@ -402,7 +395,6 @@ class Inngs {
         runs: json["runs"],
         wickets: json["wickets"],
         overs: json["overs"]?.toDouble(),
-        isDeclared: json["isDeclared"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -410,34 +402,21 @@ class Inngs {
         "runs": runs,
         "wickets": wickets,
         "overs": overs,
-        "isDeclared": isDeclared,
       };
 }
 
 class Team2Score {
-  Inngs inngs1;
+  Inngs? inngs1;
 
   Team2Score({
-    required this.inngs1,
+    this.inngs1,
   });
 
   factory Team2Score.fromJson(Map<String, dynamic> json) => Team2Score(
-        inngs1: Inngs.fromJson(json["inngs1"]),
+        inngs1: json["inngs1"] == null ? null : Inngs.fromJson(json["inngs1"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "inngs1": inngs1.toJson(),
+        "inngs1": inngs1?.toJson(),
       };
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }
