@@ -1,4 +1,4 @@
-import 'package:app/api/getimages_api.dart';
+// import 'package:app/api/getimages_api.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -31,17 +31,17 @@ class Livematches extends StatelessWidget {
             for (var match in matches) {
               final team1Name = match['matchInfo']['team1']['teamSName'];
               final team2Name = match['matchInfo']['team2']['teamSName'];
-              final team1ImageId = match['matchInfo']['team1']['imageId'];
-              final team2ImageId = match['matchInfo']['team2']['imageId'];
+              // final team1ImageId = match['matchInfo']['team1']['imageId'];
+              // final team2ImageId = match['matchInfo']['team2']['imageId'];
 
-              final team1Image = ImageApi.fetchImageById(team1ImageId);
-              final team2Image = ImageApi.fetchImageById(team2ImageId);
+              // final team1Image = ImageApi.fetchImageById(team1ImageId);
+              // final team2Image = ImageApi.fetchImageById(team2ImageId);
 
               Map<String, dynamic> teamData = {
                 'team1Name': team1Name,
                 'team2Name': team2Name,
-                'team1Image': team1Image,
-                'team2Image': team2Image,
+                // 'team1Image': team1Image,
+                // 'team2Image': team2Image,
               };
 
               teamDataList.add(teamData);

@@ -1,4 +1,3 @@
-import 'package:app/api/livematches_api.dart';
 import 'package:app/tabs.dart/livematches_tab.dart';
 import 'package:app/tabs.dart/recentmatches_tab.dart';
 import 'package:app/tabs.dart/upcomingmatches_tabs.dart';
@@ -14,7 +13,7 @@ class Homepage extends StatelessWidget {
           ),
           centerTitle: true),
       body: DefaultTabController(
-        length: 1,
+        length: 3,
         child: Column(
           children: [
             Material(
@@ -44,32 +43,32 @@ class Homepage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // Tab(
-                    //   child: Container(
-                    //     height: 50,
-                    //     decoration: BoxDecoration(
-                    //         borderRadius: BorderRadius.circular(30),
-                    //         border:
-                    //             Border.all(color: Colors.deepPurple, width: 1)),
-                    //     child: Align(
-                    //       alignment: Alignment.center,
-                    //       child: Text("Upcoming"),
-                    //     ),
-                    //   ),
-                    // ),
-                    // Tab(
-                    //   child: Container(
-                    //     height: 50,
-                    //     decoration: BoxDecoration(
-                    //         borderRadius: BorderRadius.circular(30),
-                    //         border:
-                    //             Border.all(color: Colors.deepPurple, width: 1)),
-                    //     child: Align(
-                    //       alignment: Alignment.center,
-                    //       child: Text("Recent"),
-                    //     ),
-                    //   ),
-                    // )
+                    Tab(
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            border:
+                                Border.all(color: Colors.deepPurple, width: 1)),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text("Upcoming"),
+                        ),
+                      ),
+                    ),
+                    Tab(
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            border:
+                                Border.all(color: Colors.deepPurple, width: 1)),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text("Recent"),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -80,9 +79,9 @@ class Homepage extends StatelessWidget {
                   // 1st tab
                   LivematchesTab(),
                   // // 2nd tab
-                  // UpcominmatchesTab(),
+                  UpcominmatchesTab(),
                   // // 3rd tab
-                  // RecentmatchesTab(),
+                  RecentmatchesTab(),
                 ],
               ),
             )

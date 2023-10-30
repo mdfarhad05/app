@@ -1,4 +1,5 @@
 import 'package:app/api/recentmatches_api.dart';
+import 'package:app/tabs.dart/scards_tabs.dart';
 import 'package:flutter/material.dart';
 
 class RecentmatchesTab extends StatefulWidget {
@@ -41,12 +42,21 @@ class _RecentmatchesTabState extends State<RecentmatchesTab> {
         ),
         itemBuilder: (context, index) {
           // Extract team data from API data
-          final team1LogoAsset = liveMatchesData[index]['team1Image'];
-          final team2LogoAsset = liveMatchesData[index]['team2Image'];
+          // final team1LogoAsset = liveMatchesData[index]['team1Image'];
+          // final team2LogoAsset = liveMatchesData[index]['team2Image'];
           final String team1Name = liveMatchesData[index]['team1Name'];
           final String team2Name = liveMatchesData[index]['team2Name'];
 
           return ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Scards(
+                          matchId: liveMatchesData[index]['matchId'].toString(),
+                        )),
+              );
+            },
             title: Row(
               children: [
                 // Team 1 Logo

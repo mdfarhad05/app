@@ -1,43 +1,107 @@
-import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-const apiUrl =
-    'https://cricbuzz-cricket.p.rapidapi.com/mcenter/v1/40381/hscard';
-const accessKey = 'd0ce67fd29msh53279f5b6f6bbabp1d081ejsna7a8dd32dd1dw';
+class Scorecard {
+// class Scorecard extends StatelessWidget {
+  // final String variable;
 
-class Welcome {
-  final String scoreCard;
-  final String matchHeader;
+  // const Scorecard({super.key, required this.variable});
 
-  Welcome({required this.scoreCard, required this.matchHeader});
+  final String baseUrl =
+      'https://cricbuzz-cricket.p.rapidapi.com/mcenter/v1/'; // Replace with your API base URL
 
-  factory Welcome.fromJson(Map<String, dynamic> json) {
-    return Welcome(
-      scoreCard: json['scoreCard'] as String,
-      matchHeader: json['matchHeader'] as String,
-    );
+  // Function to fetch an image by its ID
+  Future<List<Map<String, dynamic>>> ScorecardefetchData(
+      matchId, innings) async {
+    final headers = {
+      'X-RapidAPI-Key': 'ff7d38eb1bmsh5d9438c790492dfp14a9f4jsnfc3dbebe68fa',
+    };
+
+    final response = await http.get(
+        Uri.parse('${baseUrl + matchId.toString()}/hscard'),
+        headers: headers);
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> scorecard = json.decode(response.body);
+
+      // Extract team scorecard from the API response
+      List<Map<String, dynamic>> teamDataList = [];
+      for (var matchType in scorecard['scoreCard']) {
+        if (matchType['inningsId'] == innings) {
+          final scards = matchType['batTeamDetails']['batsmenData'];
+          for (var batsman = 1; batsman < 12; batsman++) {
+            String batName = scards['bat_$batsman']['batName'];
+            String outDesc = scards['bat_$batsman']['outDesc'];
+            int runs = scards['bat_$batsman']['runs'];
+            int balls = scards['bat_$batsman']['balls'];
+
+            Map<String, dynamic> teamData = {
+              'batName': batName,
+              'outDesc': outDesc,
+              'runs': runs,
+              'balls': balls,
+            };
+
+            teamDataList.add(teamData);
+          }
+        }
+      }
+      return teamDataList;
+    } else {
+      throw Exception('Failed to load API data');
+    }
   }
-}
 
-Future<Welcome> fetchApiData() async {
-  final response = await http.get(Uri.parse('$apiUrl?access_key=$accessKey'));
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: FutureBuilder<List<Map<String, dynamic>>>(
+  //       future: ScorecardefetchData(variable),
+  //       builder: (context, snapshot) {
+  //         if (snapshot.connectionState == ConnectionState.waiting) {
+  //           return Center(child: CircularProgressIndicator());
+  //         } else if (snapshot.hasError) {
+  //           return Center(child: Text('scorecard: ${snapshot.error}'));
+  //         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+  //           return Center(child: Text('No scorecard available.'));
+  //         } else {
+  //           return ListView.builder(
+  //             itemCount: snapshot.data!.length,
+  //             itemBuilder: (context, index) {
+  //               var teamData = snapshot.data![index];
+  //               var batName = teamData['batName'];
+  //               var outdecs = teamData['outDesc'];
+  //               var runs = teamData['runs'];
+  //               var balls = teamData['balls'];
+  //               // var team1Image = teamData['team1Image'];
+  //               // var team2Image = teamData['team2Image'];
 
-  if (response.statusCode == 200) {
-    final Map<String, dynamic> jsonData = json.decode(response.body);
-    final Welcome welcome = Welcome.fromJson(jsonData);
-    return welcome;
-  } else {
-    throw Exception('Failed to load API data');
-  }
-}
-
-void main() async {
-  try {
-    final apiData = await fetchApiData();
-    print('ScoreCard: ${apiData.scoreCard}');
-    print('MatchHeader: ${apiData.matchHeader}');
-    // Print other relevant data as needed
-  } catch (e) {
-    print('Error: $e');
-  }
+  //               return ListTile(
+  // title: Row(
+  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //   children: [
+  //     Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Text('Bat Name: $batName'),
+  //         Text('Out Description: $outdecs'),
+  //       ],
+  //     ),
+  //     Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Text('Runs: $runs'),
+  //         Text('Balls: $balls'),
+  //       ],
+  //     ),
+  //   ],
+  // ),
+  // );
+  //             },
+  //           );
+  //         }
+  //       },
+  //     ),
+  //   );
+  // }
 }

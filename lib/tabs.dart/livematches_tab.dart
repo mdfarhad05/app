@@ -1,8 +1,5 @@
-import 'dart:io';
-
-import 'package:app/api/getimages_api.dart';
+// import 'package:app/api/getimages_api.dart';
 import 'package:app/api/livematches_api.dart';
-import 'package:app/model/livematches_model.dart';
 import 'package:flutter/material.dart';
 
 class LivematchesTab extends StatefulWidget {
@@ -46,9 +43,9 @@ class _LivematchesTabState extends State<LivematchesTab> {
               ),
           itemBuilder: (context, index) {
             // Extract team data from API data
-            final team1LogoAsset = liveMatchesData[index]['team1Image'];
-            print('hey $team1LogoAsset');
-            final team2LogoAsset = liveMatchesData[index]['team2Image'];
+            // final team1LogoAsset = liveMatchesData[index]['team1Image'];
+            // print('hey $team1LogoAsset');
+            // final team2LogoAsset = liveMatchesData[index]['team2Image'];
             final String team1Name = liveMatchesData[index]['team1Name'];
             final String team2Name = liveMatchesData[index]['team2Name'];
 
@@ -57,12 +54,12 @@ class _LivematchesTabState extends State<LivematchesTab> {
                 children: [
                   // Team 1 Logo,
                   // Call your API function
-                  Image.file(
-                    team1LogoAsset
-                        as File, // The File object containing the image
-                    width: 30, // Adjust the size as needed
-                    height: 30,
-                  ),
+                  // Image.file(
+                  //   team1LogoAsset
+                  //       as File, // The File object containing the image
+                  //   width: 30, // Adjust the size as needed
+                  //   height: 30,
+                  // ),
 
                   const SizedBox(
                       width: 10), // Add spacing between logo and name

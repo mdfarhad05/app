@@ -41,8 +41,8 @@ class _UpcomingmatchesTabState extends State<UpcominmatchesTab> {
         ),
         itemBuilder: (context, index) {
           // Extract team data from API data
-          final team1LogoAsset = liveMatchesData[index]['team1Image'];
-          final team2LogoAsset = liveMatchesData[index]['team2Image'];
+          // final team1LogoAsset = liveMatchesData[index]['team1Image'];
+          // final team2LogoAsset = liveMatchesData[index]['team2Image'];
           final String team1Name = liveMatchesData[index]['team1Name'];
           final String team2Name = liveMatchesData[index]['team2Name'];
 
